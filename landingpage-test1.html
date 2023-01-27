@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D&D Damage Calculator</title>
+    <script type="text/javascript">
+      // Initialize total damage to 0
+      let totalDamage = 0;
+
+      // Function to calculate average damage per turn
+      function calculateDamage() {
+        // Ask user for dice rolled damage
+        while (true) {
+          let diceInput = prompt("Enter the number and type of dice to roll (e.g. 2d6) or type 'done' when finished: ");
+          if (diceInput === "done") {
+            break;
+          }
+          let diceInfo = diceInput.split("d");
+          let diceNum = parseInt(diceInfo[0]);
+          let diceFaces = parseInt(diceInfo[1]);
+          for (let i = 0; i < diceNum; i++) {
+            let roll = Math.floor(Math.random() * diceFaces) + 1;
+            totalDamage += roll;
+            console.log("Rolled a " + roll);
+          }
+        }
+
+        // Ask user for static damage
+        while (true) {
+          let staticDamage = prompt("Enter the static damage or type 'done' when finished: ");
+          if (staticDamage === "done") {
+            break;
+          }
+          totalDamage += parseInt(staticDamage);
+        }
+
+        // Ask user for number of turns
+        let numTurns = prompt("How many turns do you want to make the calculation for? ");
+
+        // Convert inputs to integers
+        numTurns = parseInt(numTurns);
+
+        // Calculate total damage
+        totalDamage *= numTurns;
+
+        // Calculate average damage per turn
+        let averageDamage = totalDamage / numTurns;
+
+        // Display results on webpage
+        document.getElementById("averageDamage").innerHTML = "The average damage per turn is: " + averageDamage;
+        document.getElementById("totalDamage").innerHTML = "The total damage is: " + totalDamage;
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="calculateDamage()">Calculate Damage</button>
+    <br>
+    <p id="averageDamage"></p>
+    <p id="totalDamage"></p>
+  </body>
+</html>
